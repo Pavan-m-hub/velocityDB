@@ -1,3 +1,4 @@
+
 # 🚀 VelocityDB: High-Performance Distributed Key-Value Store
 
 VelocityDB is a multithreaded, in-memory NoSQL database engine written entirely from scratch in C++. Built on raw POSIX sockets, it features a Raft-inspired Leader-Follower architecture for high availability, Write-Ahead Logging (WAL) for crash recovery, and a native Prometheus HTTP metrics endpoint for real-time observability.
@@ -15,6 +16,7 @@ This project was built to explore low-level system design, distributed networkin
 
 ## 📊 Performance Benchmarks
 
+*(Note: Ensure you upload your Grafana spike screenshot to your repository and replace `screenshot.jpg` with your actual file name!)*
 
 ![Grafana Load Test](test.png)
 
@@ -23,6 +25,8 @@ This project was built to explore low-level system design, distributed networkin
 * **Dockerized Execution:** ~8,982 RPS (The "Docker Tax" via virtualized network bridge and disk I/O).
 
 ## ⚙️ System Architecture
+
+
 
 1. **The Engine:** A C++ TCP server listening on port `8081`. Uses `std::unordered_map` for O(1) key-value lookups in RAM.
 2. **The Middleman:** A Python Flask backend that accepts HTTP requests from the browser, hashes passwords, and opens temporary TCP sockets to speak to the C++ database.
@@ -34,28 +38,3 @@ This project was built to explore low-level system design, distributed networkin
 Ensure Docker is installed, then pull and run the pre-configured cluster node:
 ```bash
 docker run -p 8081:8081 pavan-kv-store
-
-2. Run the Web API (Python)
-    Open a new terminal, activate a virtual environment, and launch the Flask middleman:
-
-
-        python3 -m venv venv
-        source venv/bin/activate
-        pip install flask
-        python3 app.py
-        Navigate to http://localhost:5000 to test the database via the Auth Portal frontend.
-
-3. Run the Stress Test
-    To see the engine sweat, run the benchmark script in a separate terminal:
-
-
-        python3 benchmark.py
-🛠️ Tech Stack
-        Core: C++, POSIX Sockets, <thread>, <mutex>, <atomic>
-
-        Backend API: Python 3, Flask, Hashlib
-
-        DevOps & SRE: Docker, Prometheus, Grafana
-
-👤 Author
-        Pavan M
