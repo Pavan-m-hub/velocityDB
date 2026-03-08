@@ -1,0 +1,8 @@
+global:
+  scrape_interval: 2s # Tell it to fetch data every 2 seconds
+
+scrape_configs:
+  - job_name: 'pavan_kv_store'
+    static_configs:
+      # host.docker.internal is Docker's magic word for "My Mac's localhost"
+      - targets: ['host.docker.internal:8081']
